@@ -5,8 +5,10 @@ import AppRouter from "./routers/AppRouter";
 
 function App() {
   return (
+
     <div>
-      <Router> // to be able to access router hooks un Authprovider 
+      {/* to be able to access router hooks un Authprovider  */}
+      <Router>  
       <AuthProvider>
         <Layout>
       <AppRouter/>
