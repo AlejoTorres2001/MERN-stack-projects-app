@@ -1,4 +1,4 @@
-import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
+import {Switch,Route} from 'react-router-dom'
 import Layout from '../components/layouts/Layout'
 import { roles } from '../helpers/roles'
 import routes from '../helpers/routes'
@@ -14,8 +14,8 @@ import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
 const AppRouter = () => {
     return (
-        <Router>
-            <Layout>
+        
+
             <Switch>
                 <PublicRoute exact path={routes.home} component={HomePage}></PublicRoute>
                 <PublicRoute exact path={routes.login} component={LoginPage}></PublicRoute>
@@ -28,8 +28,8 @@ const AppRouter = () => {
                 <Route exact path="*" component={NotFoundPage}></Route>
 
             </Switch>
-        </Layout>
-        </Router>
+
+
     )
 }
 
