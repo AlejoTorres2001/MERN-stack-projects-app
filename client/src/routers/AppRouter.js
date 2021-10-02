@@ -1,5 +1,4 @@
 import {Switch,Route} from 'react-router-dom'
-import Layout from '../components/layouts/Layout'
 import { roles } from '../helpers/roles'
 import routes from '../helpers/routes'
 import AccountPage from '../pages/AccountPage'

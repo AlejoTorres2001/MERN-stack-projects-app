@@ -11,7 +11,7 @@ const AuthProvider = ({children}) => {
     const[user,setUser] =  useState(null)
     const isLogged= () => !!user;
     const hasRole = (role) =>  user?.role === role;
-    const logIn= (userCredentials,fromLocation) => {setUser({id:1,role:roles.regular})
+    const logIn= (userCredentials,fromLocation) => {setUser({id:1,role:roles.regular,name:"Alejo",email:"asdas@gmail.com"})
     if(fromLocation) history.push(fromLocation)
 
 }
