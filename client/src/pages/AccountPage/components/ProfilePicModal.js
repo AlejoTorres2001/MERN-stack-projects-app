@@ -41,7 +41,7 @@ const ProfilePicModal = ({isOpen,close}) => {
 
                    </Form.Control>
                 </Form.Group>
-                <img className="img-fluid mt-2" src={selectedFile} alt="profile preview" />
+                <img className="img-fluid mt-2" src={selectedFile} alt={fileName} />
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={close}>Cancel</Button>
