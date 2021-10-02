@@ -15,7 +15,7 @@ const ChangeModal = ({ isOpen, close }) => {
     }
   }, [isOpen, reset]);
   const onSubmit = (formData) => {
-    alert("cambiando contraseña");
+    alert("changing password");
     close();
   };
   return (

@@ -7,7 +7,7 @@ const HomePage = () => {
     <Container>
       <Row className="mt-5">
         <Col xs={{ span: 12 }} md={{ span: 6 }} className="mb-5">
-          <h2>Welcome to Taks Manager</h2>
+          <h2>Welcome to Task Manager</h2>
           <p>Here you will be able to manage all your proyects!</p>
           <p>
             Tick your tasks as finished,add new ones, delete them or update

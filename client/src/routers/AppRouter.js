@@ -14,7 +14,7 @@ import PublicRoute from "./PublicRoute";
 const AppRouter = () => {
   return (
     <Switch>
-      <PublicRoute exact path={routes.home} component={HomePage}></PublicRoute>
+      <Route exact path={routes.home} component={HomePage}></Route>
       <PublicRoute
         exact
         path={routes.login}

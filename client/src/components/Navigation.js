@@ -10,9 +10,9 @@ const Navigation = () => {
       expand="lg"
       variant="dark"
       bg="dark"
-      className="text-white"
+      className="text-white "
     >
-      <Navbar.Brand as={NavLink} to={routes.home}>
+      <Navbar.Brand as={NavLink} to={routes.home} className="ms-1">
         Task Manager
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
