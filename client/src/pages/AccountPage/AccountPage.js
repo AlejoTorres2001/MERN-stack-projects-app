@@ -6,17 +6,20 @@ import DeleteModal from "./components/DeleteModal";
 import ChangePasswordModal from "./components/ChangePasswordModal";
 import useModal from "../../hooks/useModal";
 import EditModal from "./components/EditModal";
+import ProfilePicModal from "./components/ProfilePicModal";
 const AccountPage = () => {
     const {user} = useAuth()
     const [isOpenDeleteModal,openDeleteModal,closeDeleteModal] = useModal()
     const [isOpenEditModal,openEditModal,closeEditModal] = useModal()
+    const [isOpenPicModal,openPicModal,closePicModal] = useModal()
     const [isOpenChangePasswordModal,openChangePasswordModal,closeChangePasswordModal] = useModal()
+
     return (
         <>
         <Container>
             <Row className="mt-4">
                 <Col xs={12} className="text-center">
-                <img src="/img/male_avatar.svg" alt="male-avatar" className="img-account" />
+                <img src={user?.profilePic  || '/img/male_avatar.svg'    } alt="male-avatar" className="img-account" onClick={openPicModal}/>
                 </Col>
                 <Col className="mt-4">
                 <Card style={{ maxWidth: '360px' }} className="mx-auto p-4">
@@ -39,6 +42,7 @@ const AccountPage = () => {
         <DeleteModal isOpen={isOpenDeleteModal} close={closeDeleteModal}></DeleteModal>
         <ChangePasswordModal isOpen={isOpenChangePasswordModal} close={closeChangePasswordModal}></ChangePasswordModal>
         <EditModal isOpen={isOpenEditModal} close={closeEditModal}></EditModal>
+        <ProfilePicModal isOpen={isOpenPicModal} close={closePicModal}></ProfilePicModal>
         </>
     )
 }
