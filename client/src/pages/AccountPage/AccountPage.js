@@ -5,9 +5,11 @@ import '../../styles/account.css'
 import DeleteModal from "./components/DeleteModal";
 import ChangePasswordModal from "./components/ChangePasswordModal";
 import useModal from "../../hooks/useModal";
+import EditModal from "./components/EditModal";
 const AccountPage = () => {
     const {user} = useAuth()
     const [isOpenDeleteModal,openDeleteModal,closeDeleteModal] = useModal()
+    const [isOpenEditModal,openEditModal,closeEditModal] = useModal()
     const [isOpenChangePasswordModal,openChangePasswordModal,closeChangePasswordModal] = useModal()
     return (
         <>
@@ -21,11 +23,11 @@ const AccountPage = () => {
                     <p className="text-center"><b>Name: </b>{user.name}</p>
                     <p className="text-center"><b>Email: </b>{user.email}</p>
                     <p className="text-center"><b>Role: </b>{user.role}</p>
-                    <Button variant="warning">
-                        Editar account
+                    <Button variant="warning" onClick={openEditModal}>
+                        Edit account
                     </Button>
                     <Button variant="link" className="mt-1 text-decoration-none" onClick={openChangePasswordModal}>
-                        Editar password
+                        Edit password
                     </Button>
                     <Button variant="link" className="mt-3 text-danger text-decoration-none" onClick={openDeleteModal}>
                         Delete account
@@ -36,6 +38,7 @@ const AccountPage = () => {
         </Container>
         <DeleteModal isOpen={isOpenDeleteModal} close={closeDeleteModal}></DeleteModal>
         <ChangePasswordModal isOpen={isOpenChangePasswordModal} close={closeChangePasswordModal}></ChangePasswordModal>
+        <EditModal isOpen={isOpenEditModal} close={closeEditModal}></EditModal>
         </>
     )
 }

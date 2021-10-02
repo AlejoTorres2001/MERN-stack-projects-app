@@ -17,12 +17,19 @@ const AuthProvider = ({children}) => {
 }
 
     const logOut = () => setUser(null)
+    
+    const updateUser = (data) =>{
+        setUser({
+            ...user,...data
+        })
+    }
     const contextValue={
         user,
         isLogged,
         hasRole,
         logIn,
         logOut,
+        updateUser
     }
     return (
         <AuthContext.Provider value={contextValue}>

@@ -13,7 +13,7 @@ const ChangeModal = ({ isOpen, close }) => {
      if(!isOpen)
      { 
          reset()  }
-  }, [isOpen])
+  }, [isOpen,reset])
   const onSubmit = (formData) => {
     alert("cambiando contraseña");
     close()
