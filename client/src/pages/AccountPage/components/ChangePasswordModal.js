@@ -7,16 +7,16 @@ const ChangeModal = ({ isOpen, close }) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm({ resolver: ChangePasswordResolver });
   useEffect(() => {
-     if(!isOpen)
-     { 
-         reset()  }
-  }, [isOpen,reset])
+    if (!isOpen) {
+      reset();
+    }
+  }, [isOpen, reset]);
   const onSubmit = (formData) => {
     alert("cambiando contraseña");
-    close()
+    close();
   };
   return (
     <Modal show={isOpen} onHide={close}>
@@ -28,7 +28,7 @@ const ChangeModal = ({ isOpen, close }) => {
           <Form.Group>
             <Form.Label>New Password</Form.Label>
             <Form.Control
-            type="password"
+              type="password"
               placeholder="***"
               {...register("password")}
             ></Form.Control>

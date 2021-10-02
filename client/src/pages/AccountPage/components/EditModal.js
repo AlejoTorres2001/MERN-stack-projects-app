@@ -5,30 +5,29 @@ import useAuth from "../../../auth/useAuth";
 import { roles } from "../../../helpers/roles";
 import EditAccountResolver from "../../../validations/EditAccountResolver";
 const EditModal = ({ isOpen, close }) => {
-  const {user,updateUser,hasRole} = useAuth()
+  const { user, updateUser, hasRole } = useAuth();
   const {
     register,
     handleSubmit,
-    formState: { errors,dirtyFields },
-    reset
+    formState: { errors, dirtyFields },
+    reset,
   } = useForm({ resolver: EditAccountResolver });
 
-  useEffect(()=>{
-      if(user)reset({name:user.name,email:user.email,role:user.role})
-  },[user,reset])
-  const isDirty = !!Object.keys(dirtyFields).length
+  useEffect(() => {
+    if (user) reset({ name: user.name, email: user.email, role: user.role });
+  }, [user, reset]);
+  const isDirty = !!Object.keys(dirtyFields).length;
   const onSubmit = (formData) => {
-    if(!isDirty)return
-    let newUserData; 
-    if(formData.role){
-      newUserData = formData
+    if (!isDirty) return;
+    let newUserData;
+    if (formData.role) {
+      newUserData = formData;
+    } else {
+      const { role, ...resformData } = formData;
+      newUserData = resformData;
     }
-    else{
-      const {role,...resformData} = formData
-      newUserData = resformData
-    }
-    updateUser(newUserData)
-    close()
+    updateUser(newUserData);
+    close();
   };
   return (
     <Modal show={isOpen} onHide={close}>
@@ -40,7 +39,7 @@ const EditModal = ({ isOpen, close }) => {
           <Form.Group>
             <Form.Label>Name</Form.Label>
             <Form.Control
-            type="text"
+              type="text"
               placeholder="New Name"
               {...register("name")}
             ></Form.Control>
@@ -53,7 +52,7 @@ const EditModal = ({ isOpen, close }) => {
           <Form.Group>
             <Form.Label>Email</Form.Label>
             <Form.Control
-            type="email"
+              type="email"
               placeholder="email"
               {...register("email")}
             ></Form.Control>
@@ -66,11 +65,13 @@ const EditModal = ({ isOpen, close }) => {
           <Form.Group>
             <Form.Label>Role</Form.Label>
             <Form.Control
-            as="select"
+              as="select"
               {...register("role")}
               disabled={!hasRole(roles.admin)}
             >
-               {Object.keys(roles).map(rol => <option key={rol}>{rol}</option>)}
+              {Object.keys(roles).map((rol) => (
+                <option key={rol}>{rol}</option>
+              ))}
             </Form.Control>
             {errors?.role && (
               <Form.Text>
@@ -84,7 +85,11 @@ const EditModal = ({ isOpen, close }) => {
         <Button variant="secondary" onClick={close}>
           Cancel
         </Button>
-        <Button variant="primary" onClick={handleSubmit(onSubmit)} disabled={!isDirty}>
+        <Button
+          variant="primary"
+          onClick={handleSubmit(onSubmit)}
+          disabled={!isDirty}
+        >
           Update my Profile
         </Button>
       </Modal.Footer>
