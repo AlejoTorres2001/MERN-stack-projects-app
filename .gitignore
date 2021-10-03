@@ -22,3 +22,11 @@
 /client/npm-debug.log*
 /client/yarn-debug.log*
 /client/yarn-error.log*
+
+
+cors-anywhere/*.swp
+cors-anywhere/*.tmp
+cors-anywhere/*.log
+
+cors-anywhere/coverage
+cors-anywhere/node_modules
