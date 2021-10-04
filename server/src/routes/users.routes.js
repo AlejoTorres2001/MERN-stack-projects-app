@@ -8,7 +8,10 @@ router.get('/', async (req,res)=>{
 })
 
 router.post('/',async (req,res) =>{
-    console.log(req.body)
+    const  NewUserData= {...req.body,role:'regular',profilePic:''}
+    console.log(NewUserData)
+    res.json({code:"success!"})
+    
 })
 
 module.exports = router
