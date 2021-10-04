@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createContext } from "react";
 import { useHistory } from "react-router-dom";
 import { roles } from "../helpers/roles";
+import { PROXY, USERS } from "../helpers/urls";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -30,7 +31,14 @@ const AuthProvider = ({ children }) => {
   };
 
   const postNewUser= async (userData)=>{
-
+    const options = {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+      };
+      fetch(`${PROXY}${USERS}`,options)
 
   }
   const contextValue = {
