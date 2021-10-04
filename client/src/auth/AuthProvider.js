@@ -38,7 +38,8 @@ const AuthProvider = ({ children }) => {
       },
       body: JSON.stringify(userData),
       };
-      fetch(`${PROXY}${USERS}`,options)
+      const res = await fetch(`${PROXY}${USERS}`,options)
+      return await res.json()
 
   }
   const contextValue = {
