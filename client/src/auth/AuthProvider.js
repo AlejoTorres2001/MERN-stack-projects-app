@@ -28,6 +28,11 @@ const AuthProvider = ({ children }) => {
       ...data,
     });
   };
+
+  const postNewUser= async (userData)=>{
+
+
+  }
   const contextValue = {
     user,
     isLogged,
@@ -35,7 +40,9 @@ const AuthProvider = ({ children }) => {
     logIn,
     logOut,
     updateUser,
+    postNewUser,
   };
+ 
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
