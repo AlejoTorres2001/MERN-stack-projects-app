@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
       const data = await  response.json()
       const {errors} = data
       if(!errors){
-        setUser(data)
+        setUser(data[0])
         if (fromLocation) history.push(fromLocation);
       }
       return errors
