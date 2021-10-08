@@ -1,4 +1,5 @@
 const  express  = require("express");
+const { roles } = require("../helpers/roles");
 const router = express.Router();
 const User = require('../models/user')
 
@@ -22,7 +23,7 @@ router.post('/',async (req,res) =>{
             name,
             email,
             password,
-            role:'regular'
+            role:roles.regular
         })
         await newUser.save()
         responses.push({code:0,message:"Username Successfully Created!"})
