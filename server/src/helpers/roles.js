@@ -1,5 +1,4 @@
-export const roles = {
+module.exports= {
     admin: "admin",
     regular: "regular",
-  };
-  
+}
