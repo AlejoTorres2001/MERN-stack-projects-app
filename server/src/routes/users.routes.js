@@ -37,6 +37,7 @@ router.post("/", async (req, res) => {
   res.json({ responses });
 });
 router.post('/login',async (req,res) =>{
+  const errors = []
   const {name,password} = req.body
   const getUser= async (name,password)=>{
     const user=await User.find({name,password})
@@ -47,7 +48,8 @@ router.post('/login',async (req,res) =>{
   if(isValid(user)) 
   {res.json(user)}
   else{
-      res.json("Error!")
+    errors.push("Incorrect username or password")
+      res.json({errors})
   }
 })
 module.exports = router;
