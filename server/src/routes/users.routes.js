@@ -8,10 +8,29 @@ router.get('/', async (req,res)=>{
 })
 
 router.post('/',async (req,res) =>{
-    const  NewUserData= {...req.body,role:'regular',profilePic:''}
-    console.log(NewUserData)
-    res.json({code:"success!"})
+    var responses=[]
+    const {name,email,password} = req.body
+    const validName = (await User.find({name:name})).length >=1 ? false :true
+    const validEmail = (await User.find({email:email})).length >= 1 ? false :true 
+    const validateNewUser = (validEmail,validName) =>{
+        if(!validEmail) responses.push({code:1,message:"This email is already in use!"})
+        if(!validName) responses.push({code:1,message:"This user name is already in use!"})
+        return validName && validEmail
+    }
+    if (validateNewUser(validName,validEmail)) {
+        const newUser = new User({
+            name,
+            email,
+            password,
+            role:'regular'
+        })
+        await newUser.save()
+        responses.push({code:0,message:"Username Successfully Created!"})
+    }
     
+    res.json({responses})
+    
+    console.log({responses})
 })
 
 module.exports = router
