@@ -8,6 +8,6 @@ const schema = yup.object().shape({
     .string("Email must be a string")
     .email("enter a valid email")
     .required("You must enter an email"),
-  password: yup.string("must be a string").required("You must enter a password").length(6,"your password must be at least 6 characters long")
+  password: yup.string("must be a string").required("You must enter a password").min(6,"your password must be at least 6 characters long")
 });
 export default yupResolver(schema);
