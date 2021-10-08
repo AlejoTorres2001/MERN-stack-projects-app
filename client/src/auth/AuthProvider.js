@@ -10,15 +10,21 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const isLogged = () => !!user;
   const hasRole = (role) => user?.role === role;
-  const logIn = (userCredentials, fromLocation) => {
-    setUser({
-      id: 1,
-      role: roles.regular,
-      name: "Alejo",
-      email: "asdas@gmail.com",
-      profilePic: "",
-    });
-    if (fromLocation) history.push(fromLocation);
+
+  const logIn = async (userCredentials, fromLocation) => {
+    const options = {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userCredentials),
+      };
+      const response = await fetch(`${PROXY}${USERS}/login`,options)
+      const data = await  response.json()
+      setUser(data);
+      const {errors} = data
+      if (fromLocation) history.push(fromLocation);
+      return errors
   };
 
   const logOut = () => setUser(null);
