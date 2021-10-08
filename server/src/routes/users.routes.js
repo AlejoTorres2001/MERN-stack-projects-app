@@ -27,7 +27,8 @@ router.post("/", async (req, res) => {
       name,
       email,
       password,
-      role: roles.regular
+      role: roles.regular,
+      profilePic:'',
     });
     await newUser.save();
     responses.push({ code: 0, message: "Username Successfully Created!" });
@@ -35,5 +36,18 @@ router.post("/", async (req, res) => {
 
   res.json({ responses });
 });
-
+router.post('/login',async (req,res) =>{
+  const {name,password} = req.body
+  const getUser= async (name,password)=>{
+    const user=await User.find({name,password})
+    return user
+  }
+  const isValid=(user)=> user?.length > 0
+  const user = await getUser(name,password)
+  if(isValid(user)) 
+  {res.json(user)}
+  else{
+      res.json("Error!")
+  }
+})
 module.exports = router;
