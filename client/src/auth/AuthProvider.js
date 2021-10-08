@@ -21,9 +21,11 @@ const AuthProvider = ({ children }) => {
       };
       const response = await fetch(`${PROXY}${USERS}/login`,options)
       const data = await  response.json()
-      setUser(data);
       const {errors} = data
-      if (fromLocation) history.push(fromLocation);
+      if(!errors){
+        setUser(data)
+        if (fromLocation) history.push(fromLocation);
+      }
       return errors
   };
 

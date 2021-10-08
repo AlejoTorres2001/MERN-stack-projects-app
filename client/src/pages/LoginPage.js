@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Alert, Col, Container, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import useAuth from "../auth/useAuth";
 import LoginAccountResolver from "../validations/LoginAccountResolver";
 
-const userCredentials = {};
 
 const LoginPage = () => {
   const location = useLocation();
   const { logIn } = useAuth();
+  const [serverErrors, setserverErrors] = useState([])
   const {
     register,
     handleSubmit,
@@ -20,7 +20,7 @@ const LoginPage = () => {
   const onSubmit = async (formData) => {
     if (!isDirty) return;
     const errors = await logIn(formData, location.state?.from)
-    console.log(errors)
+    setserverErrors(errors)
     reset({ name: "", email: "", password: "" });
 
   };
@@ -29,6 +29,7 @@ const LoginPage = () => {
       <Container>
       <Col md={{ span: 6, offset: 3 }}>
         <Row>
+        {serverErrors.map((error,id) => <Alert variant="danger" key={id}>{error}</Alert>)}
           <Form onSubmit={handleSubmit(onSubmit)} className="mt-2 mb-2 w-100">
             <Form.Group className="mt-2">
               <Form.Label>Name</Form.Label>
