@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Button, Modal, Alert, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../auth/useAuth";
+import useServerResponse from "../../../hooks/useServerResponse";
 import ChangePasswordResolver from "../../../validations/ChangePasswordResolver";
 const ChangeModal = ({ isOpen, close }) => {
   const{updateUser}=useAuth()
-  const [serverResponse, setServerResponse] = useState({code:0,message:''});
+  const [serverResponse, setServerResponse] = useServerResponse();
   
   const {
     register,

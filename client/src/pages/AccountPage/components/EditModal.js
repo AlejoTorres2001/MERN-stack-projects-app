@@ -3,10 +3,11 @@ import { Button, Modal, Alert, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../auth/useAuth";
 import { roles } from "../../../helpers/roles";
+import useServerResponse from "../../../hooks/useServerResponse";
 import EditAccountResolver from "../../../validations/EditAccountResolver";
 const EditModal = ({ isOpen, close }) => {
   const { user, updateUser, hasRole } = useAuth();
-  const [serverResponse, setServerResponse] = useState({code:0,message:''});
+  const [serverResponse, setServerResponse] = useServerResponse();
 
   const {
     register,
