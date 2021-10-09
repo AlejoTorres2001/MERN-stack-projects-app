@@ -1,4 +1,5 @@
 const express = require("express");
+const responseCodes = require("../helpers/responseCodes");
 const roles = require("../helpers/roles");
 const user = require("../models/user");
 const router = express.Router();
@@ -18,9 +19,9 @@ router.post("/", async (req, res) => {
     (await User.find({ email: email })).length >= 1 ? false : true;
   const validateNewUser = (validEmail, validName) => {
     if (!validEmail)
-      responses.push({ code: 1, message: "This email is already in use!" });
+      responses.push({ code: responseCodes.error, message: "This email is already in use!" });
     if (!validName)
-      responses.push({ code: 1, message: "This user name is already in use!" });
+      responses.push({ code: responseCodes.error, message: "This user name is already in use!" });
     return validName && validEmail;
   };
   if (validateNewUser(validName, validEmail)) {
@@ -31,8 +32,13 @@ router.post("/", async (req, res) => {
       role: roles.regular,
       profilePic:'',
     });
-    await newUser.save();
-    responses.push({ code: 0, message: "Username Successfully Created!" });
+    try {
+      await newUser.save();
+      responses.push({ code: responseCodes.success, message: "Username Successfully Created!" });
+      
+    } catch (error) {
+      responses.push({ code: responseCodes.error, message: "Ups! there has been an error" });
+    }
   }
 
   res.json({ responses });
@@ -57,10 +63,10 @@ router.put('/update/:id',async (req,res)=>{
     const {id} = req.params
     try {
      await user.findOneAndUpdate({_id:id},{...req.body},{new:true})
-     res.json({code:0,message:"Account successfuly updated!"})
+     res.json({code:responseCodes.success,message:"Account successfuly updated!"})
       
     } catch (error) {
-      res.json({code:1,message:"Ups! there has been an error"})
+      res.json({code:responseCodes.error,message:"Ups! there has been an error"})
     }
 
 })
@@ -68,10 +74,10 @@ router.delete('/delete/:id',async (req,res) =>{
     const {id}=req.params
     try {
         await user.findOneAndRemove({_id:id})
-        res.json({code:0,message:"Account successfuly deleted!"})
+        res.json({code:responseCodes.success,message:"Account successfuly deleted!"})
 
     } catch (error) {
-      res.json({code:1,message:"Ups! there has been an error"})
+      res.json({code:responseCodes.error,message:"Ups! there has been an error"})
       
       
     }
