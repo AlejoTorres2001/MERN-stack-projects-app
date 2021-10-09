@@ -1,7 +1,14 @@
 import { useState } from "react";
 import { createContext } from "react";
 import { useHistory } from "react-router-dom";
-import { PROXY, USERS } from "../helpers/urls";
+import {
+  DELETE,
+  LOGIN,
+  PROXY,
+  setOptions,
+  UPDATE,
+  USERS,
+} from "../helpers/urls";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -11,14 +18,10 @@ const AuthProvider = ({ children }) => {
   const hasRole = (role) => user?.role === role;
 
   const logIn = async (userCredentials, fromLocation) => {
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userCredentials),
-    };
-    const response = await fetch(`${PROXY}${USERS}/login`, options);
+    const response = await fetch(
+      `${PROXY}${USERS}${LOGIN}`,
+      setOptions("POST", userCredentials)
+    );
     const data = await response.json();
     const { errors } = data;
     if (!errors) {
@@ -28,15 +31,9 @@ const AuthProvider = ({ children }) => {
     return errors;
   };
   const deleteUser = async () => {
-    const options = {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
     const response = await fetch(
-      `${PROXY}${USERS}/delete/${user._id}`,
-      options
+      `${PROXY}${USERS}${DELETE(user._id)}`,
+      setOptions("DELETE")
     );
     return await response.json();
   };
@@ -47,26 +44,15 @@ const AuthProvider = ({ children }) => {
       ...user,
       ...data,
     });
-    const options = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-    const res = await fetch(`${PROXY}${USERS}/update/${user._id}`, options);
+    const res = await fetch(
+      `${PROXY}${USERS}${UPDATE(user._id)}`,
+      setOptions("PUT", data)
+    );
     return await res.json();
   };
 
   const postNewUser = async (userData) => {
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    };
-    const res = await fetch(`${PROXY}${USERS}`, options);
+    const res = await fetch(`${PROXY}${USERS}`, setOptions("POST", userData));
     return await res.json();
   };
   const contextValue = {
