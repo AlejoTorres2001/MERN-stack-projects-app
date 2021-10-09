@@ -56,9 +56,13 @@ router.post('/login',async (req,res) =>{
 router.put('/update/:id',async (req,res)=>{
     const {id} = req.params
     const {password}=req.body
-    console.log(id,password)
-    const doc = await user.findOneAndUpdate({_id:id},{password:password},{new:true})
-    console.log(doc)
+    try {
+     await user.findOneAndUpdate({_id:id},{password:password},{new:true})
+     res.json({code:0,message:"Password successfuly changed!"})
+      
+    } catch (error) {
+      res.json({code:1,message:"Ups! there has been an error"})
+    }
 
 })
 module.exports = router;

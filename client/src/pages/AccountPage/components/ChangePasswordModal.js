@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal, Alert, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../auth/useAuth";
 import ChangePasswordResolver from "../../../validations/ChangePasswordResolver";
 const ChangeModal = ({ isOpen, close }) => {
   const{updateUser}=useAuth()
+  const [serverResponse, setServerResponse] = useState({code:0,message:''});
+  
   const {
     register,
     handleSubmit,
@@ -18,7 +20,8 @@ const ChangeModal = ({ isOpen, close }) => {
   }, [isOpen, reset]);
   const onSubmit = async(formData) => {
    const result = await  updateUser(formData)
-    close();
+    setServerResponse(result)
+   if(result.code === 0)close();
   };
   return (
     <Modal show={isOpen} onHide={close}>
@@ -39,6 +42,7 @@ const ChangeModal = ({ isOpen, close }) => {
                 <Alert variant="danger">{errors.password.message}</Alert>
               </Form.Text>
             )}
+            {serverResponse?.code !== 0 && <Alert variant="danger">{serverResponse?.message}</Alert>}
           </Form.Group>
         </Form>
       </Modal.Body>
