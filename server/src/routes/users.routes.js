@@ -57,11 +57,23 @@ router.put('/update/:id',async (req,res)=>{
     const {id} = req.params
     try {
      await user.findOneAndUpdate({_id:id},{...req.body},{new:true})
-     res.json({code:0,message:"Password successfuly changed!"})
+     res.json({code:0,message:"Account successfuly updated!"})
       
     } catch (error) {
       res.json({code:1,message:"Ups! there has been an error"})
     }
 
+})
+router.delete('/delete/:id',async (req,res) =>{
+    const {id}=req.params
+    try {
+        await user.findOneAndRemove({_id:id})
+        res.json({code:0,message:"Account successfuly deleted!"})
+
+    } catch (error) {
+      res.json({code:1,message:"Ups! there has been an error"})
+      
+      
+    }
 })
 module.exports = router;

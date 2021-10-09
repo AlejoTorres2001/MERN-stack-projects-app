@@ -28,7 +28,16 @@ const AuthProvider = ({ children }) => {
       }
       return errors
   };
-
+  const deleteUser = async () =>{
+    const options = {
+      method: 'DELETE',
+      headers: {
+      'Content-Type': 'application/json',
+      }
+      };
+      const response = await fetch(`${PROXY}${USERS}/delete/${user._id}`,options)
+      return await response.json()
+  }
   const logOut = () => setUser(null);
 
   const updateUser =async (data) => {
@@ -68,6 +77,7 @@ const AuthProvider = ({ children }) => {
     logOut,
     updateUser,
     postNewUser,
+    deleteUser,
   };
  
   return (
