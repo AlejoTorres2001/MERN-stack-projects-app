@@ -3,15 +3,8 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import routes from "../helpers/routes";
 const HomePage = ()  => {
-  const getData =async () =>{
-    const res = await fetch('http://localhost:8080/http://localhost:3001/api/users')
-    const data = await res.json()
-    console.log(data)
-
-  }
   return (
     <Container>
-      <Button onClick={getData}>get data</Button>
       <Row className="mt-5">
         <Col xs={{ span: 12 }} md={{ span: 6 }} className="mb-5">
           <h2>Welcome to Task Manager</h2>
