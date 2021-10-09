@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { createContext } from "react";
 import { useHistory } from "react-router-dom";
-import { roles } from "../helpers/roles";
 import { PROXY, USERS } from "../helpers/urls";
 export const AuthContext = createContext();
 
@@ -13,62 +12,63 @@ const AuthProvider = ({ children }) => {
 
   const logIn = async (userCredentials, fromLocation) => {
     const options = {
-      method: 'POST',
+      method: "POST",
       headers: {
-      'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(userCredentials),
-      };
-      const response = await fetch(`${PROXY}${USERS}/login`,options)
-      const data = await  response.json()
-      const {errors} = data
-      if(!errors){
-        setUser(data[0])
-        if (fromLocation) history.push(fromLocation);
-      }
-      return errors
+    };
+    const response = await fetch(`${PROXY}${USERS}/login`, options);
+    const data = await response.json();
+    const { errors } = data;
+    if (!errors) {
+      setUser(data[0]);
+      if (fromLocation) history.push(fromLocation);
+    }
+    return errors;
   };
-  const deleteUser = async () =>{
+  const deleteUser = async () => {
     const options = {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-      'Content-Type': 'application/json',
-      }
-      };
-      const response = await fetch(`${PROXY}${USERS}/delete/${user._id}`,options)
-      return await response.json()
-  }
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch(
+      `${PROXY}${USERS}/delete/${user._id}`,
+      options
+    );
+    return await response.json();
+  };
   const logOut = () => setUser(null);
 
-  const updateUser =async (data) => {
+  const updateUser = async (data) => {
     setUser({
       ...user,
       ...data,
     });
     const options = {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-      'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-      };
-      const res = await fetch(`${PROXY}${USERS}/update/${user._id}`,options)
-      return await res.json()
-    
+    };
+    const res = await fetch(`${PROXY}${USERS}/update/${user._id}`, options);
+    return await res.json();
   };
 
-  const postNewUser= async (userData)=>{
+  const postNewUser = async (userData) => {
     const options = {
-      method: 'POST',
+      method: "POST",
       headers: {
-      'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(userData),
-      };
-      const res = await fetch(`${PROXY}${USERS}`,options)
-      return await res.json()
-
-  }
+    };
+    const res = await fetch(`${PROXY}${USERS}`, options);
+    return await res.json();
+  };
   const contextValue = {
     user,
     isLogged,
@@ -79,7 +79,7 @@ const AuthProvider = ({ children }) => {
     postNewUser,
     deleteUser,
   };
- 
+
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );

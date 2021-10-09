@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Modal, Alert, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../auth/useAuth";
@@ -30,9 +30,8 @@ const EditModal = ({ isOpen, close }) => {
       newUserData = resformData;
     }
     const response = await updateUser(newUserData);
-    setServerResponse(response)
-    if(response.code === 0)close();
-
+    setServerResponse(response);
+    if (response.code === 0) close();
   };
   return (
     <Modal show={isOpen} onHide={close}>
@@ -83,7 +82,9 @@ const EditModal = ({ isOpen, close }) => {
                 <Alert variant="danger">{errors.role.message}</Alert>
               </Form.Text>
             )}
-            {serverResponse?.code !== 0 && <Alert variant="danger">{serverResponse?.message}</Alert>}
+            {serverResponse?.code !== 0 && (
+              <Alert variant="danger">{serverResponse?.message}</Alert>
+            )}
           </Form.Group>
         </Form>
       </Modal.Body>

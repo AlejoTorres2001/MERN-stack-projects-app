@@ -1,6 +1,7 @@
 import React from "react";
 import '../styles/footer.css'
 const Footer = ({ isHome }) => {
+  // eslint-disable-next-line no-unused-vars
   const homeStyles = {
     position: "fixed",
     top: "auto",
@@ -8,7 +9,6 @@ const Footer = ({ isHome }) => {
     width: "100%",
     display: "inline-block",
   };
-
   return (
     <footer
       className="bg-dark text-light text-center footer "
@@ -28,7 +28,7 @@ const Footer = ({ isHome }) => {
               <i className="fab fa-linkedin"></i>
             </span>
           </a>
-          <a href="" className="social-icon twitter"
+          <a href="/" className="social-icon twitter"
           >
             <span className="icon__inner">
               <i className="fab fa-twitter"></i>

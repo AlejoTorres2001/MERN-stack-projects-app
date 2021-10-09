@@ -5,8 +5,8 @@ import { useHistory } from "react-router";
 import useAuth from "../auth/useAuth";
 import NewAccountResolver from "../validations/NewAccountResolver";
 const RegisterPage = () => {
-  const hasErrors = (responses) => responses.some(res => res.code === 1)
-  const history=useHistory()
+  const hasErrors = (responses) => responses.some((res) => res.code === 1);
+  const history = useHistory();
   const { postNewUser } = useAuth();
   const [serverResponses, setServerResponses] = useState([]);
   const {
@@ -21,9 +21,9 @@ const RegisterPage = () => {
     reset({ name: "", email: "", password: "" });
     const { responses } = await postNewUser(formData);
     setServerResponses(responses);
-    if(!hasErrors(responses))setTimeout(() => history.push('/login'), 400);
-  }
- 
+    if (!hasErrors(responses)) setTimeout(() => history.push("/login"), 400);
+  };
+
   return (
     <Container>
       <Col md={{ span: 6, offset: 3 }}>
@@ -86,6 +86,6 @@ const RegisterPage = () => {
       </Col>
     </Container>
   );
-}
+};
 
 export default RegisterPage;

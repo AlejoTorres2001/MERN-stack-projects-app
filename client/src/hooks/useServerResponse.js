@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-
 const useServerResponse = () => {
-  const [serverResponse, setServerResponse] = useState({code:0,message:''});
+  const [serverResponse, setServerResponse] = useState({
+    code: 0,
+    message: "",
+  });
 
-    return [serverResponse, setServerResponse]
-       
-    
-}
+  return [serverResponse, setServerResponse];
+};
 
-export default useServerResponse
+export default useServerResponse;

@@ -3,12 +3,12 @@ import { Button, Modal, Alert } from "react-bootstrap";
 import useAuth from "../../../auth/useAuth";
 import useServerResponse from "../../../hooks/useServerResponse";
 const DeleteModal = ({ isOpen, close }) => {
-  const { logOut,deleteUser } = useAuth();
-  const [serverResponse, setServerResponse]=useServerResponse()
+  const { logOut, deleteUser } = useAuth();
+  const [serverResponse, setServerResponse] = useServerResponse();
   const handleDelete = async () => {
     const response = await deleteUser();
-    setServerResponse(response)
-    if(response.code===0)logOut();
+    setServerResponse(response);
+    if (response.code === 0) logOut();
   };
   return (
     <Modal show={isOpen} onHide={close}>
@@ -28,7 +28,9 @@ const DeleteModal = ({ isOpen, close }) => {
         <Button variant="danger" onClick={handleDelete}>
           Delete this account
         </Button>
-        {serverResponse.code !== 0 && <Alert variant="danger">{serverResponse.message}</Alert>}
+        {serverResponse.code !== 0 && (
+          <Alert variant="danger">{serverResponse.message}</Alert>
+        )}
       </Modal.Footer>
     </Modal>
   );
