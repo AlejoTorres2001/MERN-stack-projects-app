@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { Button, Modal, Alert, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import useAuth from "../../../auth/useAuth";
 import ChangePasswordResolver from "../../../validations/ChangePasswordResolver";
 const ChangeModal = ({ isOpen, close }) => {
+  const{updateUser}=useAuth()
   const {
     register,
     handleSubmit,
@@ -14,8 +16,8 @@ const ChangeModal = ({ isOpen, close }) => {
       reset();
     }
   }, [isOpen, reset]);
-  const onSubmit = (formData) => {
-    alert("changing password");
+  const onSubmit = async(formData) => {
+   const result = await  updateUser(formData)
     close();
   };
   return (

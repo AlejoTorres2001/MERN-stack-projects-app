@@ -31,11 +31,21 @@ const AuthProvider = ({ children }) => {
 
   const logOut = () => setUser(null);
 
-  const updateUser = (data) => {
+  const updateUser =async (data) => {
     setUser({
       ...user,
       ...data,
     });
+    const options = {
+      method: 'PUT',
+      headers: {
+      'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+      };
+      const res = await fetch(`${PROXY}${USERS}/update/${user._id}`,options)
+      return await res.json()
+    
   };
 
   const postNewUser= async (userData)=>{

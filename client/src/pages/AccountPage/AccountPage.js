@@ -11,7 +11,6 @@ const AccountPage = () => {
   const [isOpenDeleteModal, openDeleteModal, closeDeleteModal] = useModal();
   const [isOpenEditModal, openEditModal, closeEditModal] = useModal();
   const [isOpenPicModal, openPicModal, closePicModal] = useModal();
-  console.log(user);
   const [
     isOpenChangePasswordModal,
     openChangePasswordModal,

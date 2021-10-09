@@ -1,5 +1,6 @@
 const express = require("express");
 const roles = require("../helpers/roles");
+const user = require("../models/user");
 const router = express.Router();
 const User = require("../models/user");
 
@@ -51,5 +52,13 @@ router.post('/login',async (req,res) =>{
     errors.push("Incorrect username or password")
       res.json({errors})
   }
+})
+router.put('/update/:id',async (req,res)=>{
+    const {id} = req.params
+    const {password}=req.body
+    console.log(id,password)
+    const doc = await user.findOneAndUpdate({_id:id},{password:password},{new:true})
+    console.log(doc)
+
 })
 module.exports = router;
