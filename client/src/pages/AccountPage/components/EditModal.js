@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal, Alert, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../auth/useAuth";
@@ -6,6 +6,8 @@ import { roles } from "../../../helpers/roles";
 import EditAccountResolver from "../../../validations/EditAccountResolver";
 const EditModal = ({ isOpen, close }) => {
   const { user, updateUser, hasRole } = useAuth();
+  const [serverResponse, setServerResponse] = useState({code:0,message:''});
+
   const {
     register,
     handleSubmit,
@@ -17,7 +19,7 @@ const EditModal = ({ isOpen, close }) => {
     if (user) reset({ name: user.name, email: user.email, role: user.role });
   }, [user, reset]);
   const isDirty = !!Object.keys(dirtyFields).length;
-  const onSubmit = (formData) => {
+  const onSubmit = async (formData) => {
     if (!isDirty) return;
     let newUserData;
     if (formData.role) {
@@ -26,8 +28,10 @@ const EditModal = ({ isOpen, close }) => {
       const { role, ...resformData } = formData;
       newUserData = resformData;
     }
-    updateUser(newUserData);
-    close();
+    const response = await updateUser(newUserData);
+    setServerResponse(response)
+    if(response.code === 0)close();
+
   };
   return (
     <Modal show={isOpen} onHide={close}>
@@ -78,6 +82,7 @@ const EditModal = ({ isOpen, close }) => {
                 <Alert variant="danger">{errors.role.message}</Alert>
               </Form.Text>
             )}
+            {serverResponse?.code !== 0 && <Alert variant="danger">{serverResponse?.message}</Alert>}
           </Form.Group>
         </Form>
       </Modal.Body>
