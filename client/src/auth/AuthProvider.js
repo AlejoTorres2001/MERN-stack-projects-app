@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import {
   DELETE,
   LOGIN,
+  PROJECTS,
   PROXY,
   setOptions,
   UPDATE,
@@ -55,6 +56,10 @@ const AuthProvider = ({ children }) => {
     const res = await fetch(`${PROXY}${USERS}`, setOptions("POST", userData));
     return await res.json();
   };
+  const getProjects = async () =>{
+    const res = await fetch(`${PROXY}${PROJECTS}`,setOptions("POST",{name:user.name}))
+    return await res.json()
+  }
   const contextValue = {
     user,
     isLogged,
@@ -64,6 +69,7 @@ const AuthProvider = ({ children }) => {
     updateUser,
     postNewUser,
     deleteUser,
+    getProjects,
   };
 
   return (
