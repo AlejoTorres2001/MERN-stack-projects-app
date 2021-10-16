@@ -1,5 +1,6 @@
-import React, { Suspense, useEffect, useState } from "react";
-import useAuth from "../auth/useAuth";
+import React, {  useEffect, useState } from "react";
+import useAuth from "../../auth/useAuth";
+import Project from "./components/Project";
 
 
 const ProjectsPage = () => {
@@ -15,14 +16,12 @@ const ProjectsPage = () => {
   }, []);
   if(projects===null){
     return(
-      <div>
-        <h1>Loding projects...</h1>
-      </div>
+      <h1>Loading...</h1>
     )
   }
   return (
     <div>
-    {projects.map(pro =><h1 key={pro._id}>{pro.name}</h1>)}
+    {projects.map(pro =><Project project={pro}></Project>)}
     </div>
   );
 };
