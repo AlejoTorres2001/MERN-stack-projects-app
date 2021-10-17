@@ -7,8 +7,7 @@ const ProjectPage = () => {
   const [project, setProject] = useState(null);
   useEffect(() => {
     const handleProjects = async()=>{
-      const id = projectId.substring(1)
-      const project= await getProject(id)
+      const project= await getProject(projectId)
       setProject(project)
     }
     handleProjects()

@@ -61,7 +61,7 @@ const AuthProvider = ({ children }) => {
     return await res.json()
   }
   const getProject = async (id) =>{
-    const res = await fetch(`${PROXY}${PROJECTS}/:${id}`)
+    const res = await fetch(`${PROXY}${PROJECTS}/${id}`)
     return await res.json()
   }
   const contextValue = {
