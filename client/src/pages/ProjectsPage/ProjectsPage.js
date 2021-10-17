@@ -13,6 +13,7 @@ const ProjectsPage = () => {
 
     }
     handleProjects()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if(projects===null){
     return(

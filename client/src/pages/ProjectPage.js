@@ -12,7 +12,8 @@ const ProjectPage = () => {
       setProject(project)
     }
     handleProjects()
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projectId]);
   if(project===null){
     return(
       <h1>Loading...</h1>
