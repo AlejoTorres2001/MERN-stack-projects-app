@@ -12,5 +12,11 @@ router.post("/", async (req, res) => {
     res.json({ code: codes.error, message: message.error });
   }
 });
+router.get('/:projectId',async(req,res)=>{
+  const {projectId}= req.params
+  console.log(projectId) 
+  const pr=await project.findOne({_id:projectId.substring(1)}) 
+  res.json(pr)
+})
 
 module.exports = router;
