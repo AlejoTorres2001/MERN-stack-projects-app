@@ -1,7 +1,13 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import routes from "../../../helpers/routes";
 
 const Project = ({ project }) => {
+  const history = useHistory();
+  const handleClick = (path) => {
+    history.push(path);
+  };
   return (
     <Card style={{ width: "18rem" }}>
       <Card.Img variant="top" src={`${project.picture}`} />
@@ -11,7 +17,12 @@ const Project = ({ project }) => {
         {project.coWorkers.map((cw) => (
           <Card.Text>{cw}</Card.Text>
         ))}
-        <Button variant="primary">View Project</Button>
+        <Button
+          onClick={() => handleClick(routes.project(project?._id))}
+          variant="primary"
+        >
+          View Project
+        </Button>
       </Card.Body>
     </Card>
   );
