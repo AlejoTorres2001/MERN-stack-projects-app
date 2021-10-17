@@ -21,7 +21,7 @@ const ProjectsPage = () => {
   }
   return (
     <div>
-    {projects.map(pro =><Project project={pro}></Project>)}
+    {projects.map(pro =><Project key={pro._id} project={pro}></Project>)}
     </div>
   );
 };
