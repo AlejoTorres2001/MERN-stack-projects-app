@@ -1,6 +1,7 @@
 const express = require("express");
 const responses = require("../helpers/responses");
 const roles = require("../helpers/roles");
+const project = require("../models/project");
 const user = require("../models/user");
 const router = express.Router();
 const User = require("../models/user");
@@ -72,8 +73,12 @@ router.post("/login", async (req, res) => {
 router.put("/update/:id", async (req, res) => {
   const { id } = req.params;
   try {
+    const {name} = await user.findOne({_id:id},{_id:0,name:1})
+    console.log(name)
     await user.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
+    console.log(await project.updateMany({owner:name},{owner:req.body?.name}))
     res.json({ code: responses.codes.success, message: userUpdated });
+    
   } catch (error) {
     res.json({ code: responses.codes.error, message: genericError });
   }
