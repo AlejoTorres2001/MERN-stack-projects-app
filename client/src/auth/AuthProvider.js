@@ -60,6 +60,10 @@ const AuthProvider = ({ children }) => {
     const res = await fetch(`${PROXY}${PROJECTS}`,setOptions("POST",{name:user.name}))
     return await res.json()
   }
+  const getProject = async (id) =>{
+    const res = await fetch(`${PROXY}${PROJECTS}/:${id}`)
+    return await res.json()
+  }
   const contextValue = {
     user,
     isLogged,
@@ -70,6 +74,7 @@ const AuthProvider = ({ children }) => {
     postNewUser,
     deleteUser,
     getProjects,
+    getProject,
   };
 
   return (
