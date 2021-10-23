@@ -19,11 +19,10 @@ const RegisterPage = () => {
   const onSubmit = async (formData) => {
     if (!isDirty) return;
     reset({ name: "", email: "", password: "" });
-    const { responses } = await postNewUser(formData);
+    const  responses  = await postNewUser(formData);
     setServerResponses(responses);
     if (!hasErrors(responses)) setTimeout(() => history.push("/login"), 400);
   };
-
   return (
     <Container>
       <Col md={{ span: 6, offset: 3 }}>
