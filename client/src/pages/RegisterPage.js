@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Alert, Form, Container, Col, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import useAuth from "../auth/useAuth";
+import useServerResponse from "../hooks/useServerResponse";
 import NewAccountResolver from "../validations/NewAccountResolver";
 const RegisterPage = () => {
   const hasErrors = (responses) => responses.some((res) => res.code === 1);
   const history = useHistory();
   const { postNewUser } = useAuth();
-  const [serverResponses, setServerResponses] = useState([]);
+  const [serverResponses, setServerResponses] = useServerResponse([]);
   const {
     register,
     handleSubmit,

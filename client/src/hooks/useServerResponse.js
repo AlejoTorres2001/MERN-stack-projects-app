@@ -1,10 +1,7 @@
 import { useState } from "react";
 
 const useServerResponse = () => {
-  const [serverResponse, setServerResponse] = useState({
-    code: 0,
-    message: "",
-  });
+  const [serverResponse, setServerResponse] = useState([]);
 
   return [serverResponse, setServerResponse];
 };

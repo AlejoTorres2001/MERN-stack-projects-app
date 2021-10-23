@@ -3,13 +3,14 @@ import { Alert, Col, Container, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import useAuth from "../auth/useAuth";
+import useServerResponse from "../hooks/useServerResponse";
 import LoginAccountResolver from "../validations/LoginAccountResolver";
 
 
 const LoginPage = () => {
   const location = useLocation();
   const { logIn } = useAuth();
-  const [serverErrors, setserverErrors] = useState([])
+  const [serverErrors, setserverErrors] = useServerResponse([])
   const {
     register,
     handleSubmit,
