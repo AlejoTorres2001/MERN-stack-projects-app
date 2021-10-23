@@ -31,9 +31,9 @@ router.post("/", async (req, res) => {
     (await User.find({ email: email })).length >= 1 ? false : true;
   const validateNewUser = (validEmail, validName) => {
     if (!validEmail)
-      responses.push({ code: responses.error, message: emailError });
+      responses.push({ code: error, message: emailError });
     if (!validName)
-      responses.push({ code: responses.error, message: usernameError });
+      responses.push({ code: error, message: usernameError });
     return validName && validEmail;
   };
   if (validateNewUser(validName, validEmail)) {
@@ -46,13 +46,13 @@ router.post("/", async (req, res) => {
     });
     try {
       await newUser.save();
-      responses.push({ code: responses.success, message: userCreated });
+      responses.push({ code:success, message: userCreated });
     } catch (error) {
-      responses.push({ code: responses.error, message: genericError });
+      responses.push({ code:error, message: genericError });
     }
   }
-
-  res.json({ responses });
+  console.log({responses})
+  res.json( responses );
 });
 router.post("/login", async (req, res) => {
   const errors = [];
@@ -74,22 +74,21 @@ router.put("/update/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const {name} = await user.findOne({_id:id},{_id:0,name:1})
-    console.log(name)
     await user.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
     console.log(await project.updateMany({owner:name},{owner:req.body?.name}))
-    res.json({ code: responses.codes.success, message: userUpdated });
+    res.json({ code: success, message: userUpdated });
     
   } catch (error) {
-    res.json({ code: responses.codes.error, message: genericError });
+    res.json({ code: error, message: genericError });
   }
 });
 router.delete("/delete/:id", async (req, res) => {
   const { id } = req.params;
   try {
     await user.findOneAndRemove({ _id: id });
-    res.json({ code: responses.codes.success, message: userDeleted });
+    res.json({ code:success, message: userDeleted });
   } catch (error) {
-    res.json({ code: responses.codes.error, message: genericError });
+    res.json({ code:error, message: genericError });
   }
 });
 module.exports = router;
