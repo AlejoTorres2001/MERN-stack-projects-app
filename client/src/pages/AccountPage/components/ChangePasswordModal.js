@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../auth/useAuth";
 import useServerResponse from "../../../hooks/useServerResponse";
 import ChangePasswordResolver from "../../../validations/ChangePasswordResolver";
-import { toast } from "react-toastify";
+import showToasts from "./functions/showToasts";
+
 const ChangeModal = ({ isOpen, close }) => {
   const { updateUser } = useAuth();
   const [serverResponse, setServerResponse] = useServerResponse();
@@ -24,12 +25,7 @@ const ChangeModal = ({ isOpen, close }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, reset]);
 
-  const showToasts = (serverResponses) => {
-    serverResponses.forEach((sr) => {
-      if (sr.code === 0) return toast.success(sr.message);
-      else return toast.error(sr.message);
-    });
-  };
+  
   const onSubmit = async (formData) => {
     const result = await updateUser(formData);
     setServerResponse([result]);

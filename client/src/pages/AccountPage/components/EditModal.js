@@ -5,9 +5,10 @@ import useAuth from "../../../auth/useAuth";
 import { roles } from "../../../helpers/roles";
 import useServerResponse from "../../../hooks/useServerResponse";
 import EditAccountResolver from "../../../validations/EditAccountResolver";
+import showToasts from "./functions/showToasts";
 const EditModal = ({ isOpen, close }) => {
-  const { user, updateUser, hasRole } = useAuth();
   const [serverResponse, setServerResponse] = useServerResponse();
+  const { user, updateUser, hasRole } = useAuth();
 
   const {
     register,
@@ -18,7 +19,9 @@ const EditModal = ({ isOpen, close }) => {
 
   useEffect(() => {
     if (user) reset({ name: user.name, email: user.email, role: user.role });
-  }, [user, reset]);
+    showToasts(serverResponse);
+    setServerResponse([]);
+  }, [isOpen, reset, user]);
   const isDirty = !!Object.keys(dirtyFields).length;
   const onSubmit = async (formData) => {
     if (!isDirty) return;
@@ -30,9 +33,10 @@ const EditModal = ({ isOpen, close }) => {
       newUserData = resformData;
     }
     const response = await updateUser(newUserData);
-    setServerResponse(response);
+    setServerResponse([response]);
     if (response.code === 0) close();
   };
+
   return (
     <Modal show={isOpen} onHide={close}>
       <Modal.Header closeButton>
@@ -81,9 +85,6 @@ const EditModal = ({ isOpen, close }) => {
               <Form.Text>
                 <Alert variant="danger">{errors.role.message}</Alert>
               </Form.Text>
-            )}
-            {serverResponse?.code !== 0 && (
-              <Alert variant="danger">{serverResponse?.message}</Alert>
             )}
           </Form.Group>
         </Form>
