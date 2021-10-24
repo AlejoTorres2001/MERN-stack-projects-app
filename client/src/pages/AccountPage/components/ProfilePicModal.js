@@ -8,12 +8,11 @@ const ProfilePicModal = ({ isOpen, close }) => {
   const { updateUser } = useAuth();
   const handleChange = (e) => {
     const [file] = e.target.files;
-    const SIZE_20MB = 20 * 1024 * 1024;
+    const SIZE_20MB = 200 * 1024 *1024 ;
     const isValidSize = file.size < SIZE_20MB;
     const isNameOfOneImageRegEx = /.(jpe?g|gif|png)$/i;
     const isValidType = isNameOfOneImageRegEx.test(file.name);
-    if (!isValidSize)
-      return toast.error("Your image is too Heavy, max size 20MB");
+    if (!isValidSize) return toast.error("Your image is too Heavy, max size 20MB");
     if (!isValidType) return toast.error("You can only upload images");
     setFileName(file.name);
     const reader = new FileReader();
