@@ -4,10 +4,11 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../auth/useAuth";
 import useServerResponse from "../../../hooks/useServerResponse";
 import ChangePasswordResolver from "../../../validations/ChangePasswordResolver";
+import { toast } from "react-toastify";
 const ChangeModal = ({ isOpen, close }) => {
-  const{updateUser}=useAuth()
+  const { updateUser } = useAuth();
   const [serverResponse, setServerResponse] = useServerResponse();
-  
+
   const {
     register,
     handleSubmit,
@@ -18,11 +19,23 @@ const ChangeModal = ({ isOpen, close }) => {
     if (!isOpen) {
       reset();
     }
+    showToasts(serverResponse);
+    setServerResponse([]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, reset]);
-  const onSubmit = async(formData) => {
-   const result = await  updateUser(formData)
-    setServerResponse(result)
-   if(result.code === 0)close();
+
+  const showToasts = (serverResponses) => {
+    serverResponses.forEach((sr) => {
+      if (sr.code === 0) return toast.success(sr.message);
+      else return toast.error(sr.message);
+    });
+  };
+  const onSubmit = async (formData) => {
+    const result = await updateUser(formData);
+    setServerResponse([result]);
+    if (result.code === 0) {
+      close();
+    }
   };
   return (
     <Modal show={isOpen} onHide={close}>
@@ -43,7 +56,6 @@ const ChangeModal = ({ isOpen, close }) => {
                 <Alert variant="danger">{errors.password.message}</Alert>
               </Form.Text>
             )}
-            {serverResponse?.code !== 0 && <Alert variant="danger">{serverResponse?.message}</Alert>}
           </Form.Group>
         </Form>
       </Modal.Body>
