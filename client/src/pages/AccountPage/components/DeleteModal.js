@@ -4,7 +4,7 @@ import useAuth from "../../../auth/useAuth";
 import useServerResponse from "../../../hooks/useServerResponse";
 const DeleteModal = ({ isOpen, close }) => {
   const { logOut, deleteUser } = useAuth();
-  const [serverResponse, setServerResponse] = useServerResponse();
+  const [serverResponse, setServerResponse] = useServerResponse({});
   const handleDelete = async () => {
     const response = await deleteUser();
     setServerResponse(response);

@@ -6,7 +6,7 @@ import useServerResponse from "../../../hooks/useServerResponse";
 import ChangePasswordResolver from "../../../validations/ChangePasswordResolver";
 const ChangeModal = ({ isOpen, close }) => {
   const{updateUser}=useAuth()
-  const [serverResponse, setServerResponse] = useServerResponse();
+  const [serverResponse, setServerResponse] = useServerResponse([]);
   
   const {
     register,
@@ -40,10 +40,10 @@ const ChangeModal = ({ isOpen, close }) => {
             ></Form.Control>
             {errors?.password && (
               <Form.Text>
-                <Alert variant="danger">{errors.password.message}</Alert>
+                <Alert variant="danger">{errors?.password?.message}</Alert>
               </Form.Text>
             )}
-            {serverResponse?.code !== 0 && <Alert variant="danger">{serverResponse?.message}</Alert>}
+            {serverResponse.code !== 0  && <Alert variant="danger">{serverResponse?.message}</Alert>}
           </Form.Group>
         </Form>
       </Modal.Body>

@@ -7,7 +7,7 @@ import useServerResponse from "../../../hooks/useServerResponse";
 import EditAccountResolver from "../../../validations/EditAccountResolver";
 const EditModal = ({ isOpen, close }) => {
   const { user, updateUser, hasRole } = useAuth();
-  const [serverResponse, setServerResponse] = useServerResponse();
+  const [serverResponse, setServerResponse] = useServerResponse({});
 
   const {
     register,
