@@ -15,6 +15,7 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const history = useHistory();
   const [user, setUser] = useState(null);
+  const [Users,setUsers]=useState(null);
   const isLogged = () => !!user;
   const hasRole = (role) => user?.role === role;
 
@@ -31,11 +32,13 @@ const AuthProvider = ({ children }) => {
     }
     return errors;
   };
-  const deleteUser = async () => {
+  const deleteUser = async (id) => {
     const response = await fetch(
-      `${PROXY}${USERS}${DELETE(user._id)}`,
+      `${PROXY}${USERS}${DELETE(id)}`,
       setOptions("DELETE")
     );
+    setUsers(Users.filter((user) => user._id !== id)) 
+    console.log(Users);
     return await response.json();
   };
   const logOut = () => setUser(null);
@@ -66,7 +69,7 @@ const AuthProvider = ({ children }) => {
   }
   const getUsers = async () => {
     const res = await fetch(`${PROXY}${USERS}`);
-    return await res.json();
+    setUsers(await res.json());
   }
   const contextValue = {
     user,
@@ -79,7 +82,8 @@ const AuthProvider = ({ children }) => {
     deleteUser,
     getProjects,
     getProject,
-    getUsers
+    getUsers,
+    Users,
   };
 
   return (

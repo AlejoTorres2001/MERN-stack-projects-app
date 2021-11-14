@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import useAuth from "../../../auth/useAuth";
 import { useEffect } from "react";
+import UserCard from "./components/UserCard";
+import { Container } from "react-bootstrap";
 const UsersPage = () => {
-   const [Users,setUsers]=useState(null);
-  const {getUsers} = useAuth();
-  useEffect(() => {
+  const {Users,getUsers} = useAuth();
   const handleUsers = async () =>{
-    const users = await getUsers()
-    setUsers(users)
+    await getUsers();
   }
-  handleUsers() 
+  useEffect(() => {
+    handleUsers();
   }, [])
   if(Users===null){
     return(
@@ -17,8 +17,8 @@ const UsersPage = () => {
     )
   }
   return (
-    <div>
-      {Users.map(user => <h1>{user.name}</h1>)}
+    <div className="d-flex row justify-content-center align-content-lg-center m-4" >
+      {Users.map(user => UserCard(user))}
     </div>
   );
 };

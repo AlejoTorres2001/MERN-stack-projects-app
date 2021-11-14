@@ -3,9 +3,9 @@ import { Button, Modal, Alert } from "react-bootstrap";
 import useAuth from "../../../auth/useAuth";
 import showToasts from "./functions/showToasts";
 const DeleteModal = ({ isOpen, close }) => {
-  const { logOut, deleteUser } = useAuth();
+  const { logOut, deleteUser,user } = useAuth();
   const handleDelete = async () => {
-    const response = await deleteUser();
+    const response = await deleteUser(user._id);
     showToasts([response])
     if (response.code === 0) logOut();
   };
