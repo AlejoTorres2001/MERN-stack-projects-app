@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useAuth from "../../auth/useAuth";
+import useAuth from "../../../auth/useAuth";
 import { useEffect } from "react";
 const UsersPage = () => {
    const [Users,setUsers]=useState(null);

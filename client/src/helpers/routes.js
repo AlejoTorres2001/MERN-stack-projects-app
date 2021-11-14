@@ -7,7 +7,7 @@ const routes = {
   project: (projectId) =>
     projectId ? `/project/:${projectId}` : "/project/:projectId",
   admin: {
-    users: "/admin/users",
+    users: "/admin/UsersPage",
   },
 };
 export default routes;

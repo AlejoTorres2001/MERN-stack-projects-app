@@ -2,7 +2,7 @@ import { Switch, Route } from "react-router-dom";
 import { roles } from "../helpers/roles";
 import routes from "../helpers/routes";
 import AccountPage from "../pages/AccountPage";
-import UsersPage from "../pages/admin/UsersPage";
+import UsersPage from "../pages/admin/UsersPage/UsersPage";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import NotFoundPage from "../pages/NotFoundPage";
